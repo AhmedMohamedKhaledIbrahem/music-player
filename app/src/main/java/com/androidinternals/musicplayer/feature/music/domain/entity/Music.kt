@@ -1,4 +1,4 @@
-package com.androidinternals.musicplayer.feature.player.domain.entity
+package com.androidinternals.musicplayer.feature.music.domain.entity
 
 import androidx.compose.runtime.Stable
 import kotlinx.serialization.Serializable

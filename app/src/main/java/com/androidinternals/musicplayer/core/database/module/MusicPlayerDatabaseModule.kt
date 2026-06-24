@@ -50,4 +50,9 @@ object MusicPlayerDatabaseModule {
         database: MusicPlayerDatabase
     ) = database.recentlyPlayedDao()
 
+    @Provides
+    @Singleton
+    fun provideMusicDao(
+        database: MusicPlayerDatabase
+    ) = database.musicDao()
 }
