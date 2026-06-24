@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.room)
+
 }
 
 android {
@@ -37,7 +39,9 @@ android {
         compose = true
     }
 }
-
+room {
+    schemaDirectory("$projectDir/schemas")
+}
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
