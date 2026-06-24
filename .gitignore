@@ -13,3 +13,35 @@
 .externalNativeBuild
 .cxx
 local.properties
+ Gradle
+.gradle/
+build/
+*/build/
+
+# Android Studio / IntelliJ
+.idea/
+
+# Generated files
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Kotlin
+.kotlin/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+
+# Generated APKs / Bundles
+*.apk
+*.aab
+
+# Firebase
+google-services.json
