@@ -1,6 +1,7 @@
 package com.androidinternals.musicplayer
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class MusicPlayerApplication: Application() {
-}
+@HiltAndroidApp
+class MusicPlayerApplication: Application()
