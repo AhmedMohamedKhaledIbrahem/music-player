@@ -10,9 +10,11 @@ sealed interface Route : ViewEvent, NavKey {
     @Serializable
     data object HomeScreen : Route, ViewEvent, NavKey
     @Serializable
-    data class MusicScreen(val music: Music)
+    data object MusicScreen:Route, ViewEvent, NavKey
     @Serializable
-    data object SettingsScreen
+    data class MusicDetailsScreen(val music: Music):Route, ViewEvent, NavKey
+    @Serializable
+    data object SettingsScreen:Route, ViewEvent, NavKey
 
 
 }
