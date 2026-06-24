@@ -20,7 +20,7 @@ build/
 
 # Android Studio / IntelliJ
 .idea/
-
+.idea/misc.xml
 # Generated files
 captures/
 .externalNativeBuild/
