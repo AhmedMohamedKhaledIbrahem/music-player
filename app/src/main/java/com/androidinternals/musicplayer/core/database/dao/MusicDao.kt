@@ -13,4 +13,7 @@ interface MusicDao: BaseDao<MusicEntity> {
     suspend fun getSongById(mediaStoreId: Long): MusicEntity?
     @Query("DELETE FROM songs WHERE id NOT IN (:songIds)")
     suspend fun deleteSongsNotIn(songIds: List<Long>)
+
+    @Query("DELETE FROM songs")
+    suspend fun deleteAllSongs()
 }
