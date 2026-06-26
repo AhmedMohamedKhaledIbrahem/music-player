@@ -63,17 +63,18 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
+    ksp(libs.kotlinx.metadata.jvm)
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
-    ksp(libs.kotlinx.serialization.json)
 
     implementation(libs.navigation3.ui)
     implementation(libs.navigation3.runtime)
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.datastore.preferences)
+    implementation(libs.coil.compose)
 
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
