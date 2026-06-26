@@ -31,7 +31,6 @@ class MusicViewModel @Inject constructor(
             MusicIntent.LoadSongs -> loadSong()
             MusicIntent.RequestPermissions -> sendEvent(UiEvent.TriggerPermissionCheck)
             MusicIntent.ShowMessagePermissionDenied -> sendEvent(UiEvent.ShowSnackBar(UiText.from("Permission denied")))
-            is MusicIntent.SongDetailsClickItem -> songDetails(intent.song)
 
         }
     }
@@ -64,14 +63,5 @@ class MusicViewModel @Inject constructor(
                 }
                 sendEvent(UiEvent.ShowSnackBar(UiText.from(e.message ?: "Something went wrong")))
             }.launchIn(viewModelScope)
-    }
-    private fun songDetails(song: Music){
-        try {
-            updateState { it.copy(isLoading = true) }
-            sendEvent(UiEvent.Navigate(Route.MusicDetailsScreen(song)))
-        }catch (e: Exception){
-            updateState { it.copy(isLoading = false) }
-            sendEvent(UiEvent.ShowSnackBar(UiText.from(e.message ?: "Something went wrong")))
-        }
     }
 }
