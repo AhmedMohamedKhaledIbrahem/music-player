@@ -25,13 +25,14 @@ class MusicViewModel @Inject constructor(
 ) : MviViewModel<MusicState, MusicIntent, UiEvent>() {
     override val initialState: MusicState
         get() = MusicState()
-
     override fun onIntent(intent: MusicIntent) {
         when (intent) {
             MusicIntent.AddSongsFromMusicProvider -> addSongsFromMusicProvider()
             MusicIntent.LoadSongs -> loadSong()
             MusicIntent.RequestPermissions -> sendEvent(UiEvent.TriggerPermissionCheck)
+            MusicIntent.ShowMessagePermissionDenied -> sendEvent(UiEvent.ShowSnackBar(UiText.from("Permission denied")))
             is MusicIntent.SongDetailsClickItem -> songDetails(intent.song)
+
         }
     }
 
@@ -40,6 +41,7 @@ class MusicViewModel @Inject constructor(
             updateState { it.copy(isLoading = true) }
             try {
                 addSongsFromMusicProviderUseCase.invoke()
+                sendEvent(UiEvent.Navigate(Route.MusicScreen))
             } catch (e: Exception) {
                 sendEvent(UiEvent.ShowSnackBar(UiText.from(e.message ?: "Something went wrong")))
             } finally {
