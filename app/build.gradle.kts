@@ -69,6 +69,10 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.common)
+    implementation(libs.androidx.media3.ui.compose)
+
     implementation(libs.navigation3.ui)
     implementation(libs.navigation3.runtime)
     implementation(libs.kotlinx.serialization.json)
