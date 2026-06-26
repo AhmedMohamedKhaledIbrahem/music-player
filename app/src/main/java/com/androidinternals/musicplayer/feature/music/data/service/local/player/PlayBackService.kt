@@ -1,5 +1,6 @@
 package com.androidinternals.musicplayer.feature.music.data.service.local.player
 
+import android.util.Log
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
@@ -65,7 +66,11 @@ class PlayBackServiceImpl @Inject constructor(
         songs: List<Music>,
         startIndex: Int
     ) {
-        val mediaItem = songs.map { it.toMediaItem() }
+        val mediaItem = songs.map {
+            Log.d("AudioPlayerControllerImpl", "play: $it")
+
+            it.toMediaItem()
+        }
         player.setMediaItems(mediaItem, startIndex, 0L)
         player.prepare()
         player.play()

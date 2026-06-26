@@ -3,6 +3,7 @@ package com.androidinternals.musicplayer.feature.music.data.service.local.player
 import androidx.media3.common.Player
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,6 +33,7 @@ class ProgressTrackerImpl @Inject constructor(): ProgressTracker {
                         hasNext = player.hasNextMediaItem(),
                         hasPrevious = player.hasPreviousMediaItem(),
                     )
+                    delay(1000L)
                 }
             }
         }

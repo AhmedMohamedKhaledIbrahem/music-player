@@ -1,8 +1,11 @@
 package com.androidinternals.musicplayer.feature.music.domain.controller
 
 import com.androidinternals.musicplayer.feature.music.domain.entity.Music
+import com.androidinternals.musicplayer.feature.music.domain.entity.PlayBackState
+import kotlinx.coroutines.flow.StateFlow
 
 interface AudioController {
+    val playbackState: StateFlow<PlayBackState>
     fun play(song: Music)
     fun play(songs: List<Music>, startIndex: Int = 0)
     fun resume()
