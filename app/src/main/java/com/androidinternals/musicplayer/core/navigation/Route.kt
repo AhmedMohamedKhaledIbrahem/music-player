@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface Route : ViewEvent, NavKey {
     @Serializable
-    data object HomeScreen : Route, ViewEvent, NavKey
+    data object SplashScreen : Route, ViewEvent, NavKey
     @Serializable
     data object MusicScreen:Route, ViewEvent, NavKey
     @Serializable

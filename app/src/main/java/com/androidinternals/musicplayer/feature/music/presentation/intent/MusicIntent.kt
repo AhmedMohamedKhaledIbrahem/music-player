@@ -7,5 +7,6 @@ sealed interface MusicIntent: ViewIntent {
     data object LoadSongs: MusicIntent
     data object AddSongsFromMusicProvider: MusicIntent
     data object RequestPermissions: MusicIntent
+    data object ShowMessagePermissionDenied: MusicIntent
     data class SongDetailsClickItem(val song: Music): MusicIntent
 }
