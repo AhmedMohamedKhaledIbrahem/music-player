@@ -10,7 +10,9 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.androidinternals.musicplayer.core.navigation.Route
+import com.androidinternals.musicplayer.feature.music.presentation.screen.MusicDetailsScreen
 import com.androidinternals.musicplayer.feature.music.presentation.screen.MusicScreenRoot
+import com.androidinternals.musicplayer.feature.music.presentation.viewmodel.AudioViewModel
 import com.androidinternals.musicplayer.feature.music.presentation.viewmodel.MusicViewModel
 
 @Composable
@@ -41,16 +43,27 @@ fun MusicPlayerNavigation(
             }
             entry<Route.MusicScreen> {
                 val musicViewModel = hiltViewModel<MusicViewModel>()
+                val audioViewModel = hiltViewModel<AudioViewModel>()
                 MusicScreenRoot(
                     musicViewModel = musicViewModel,
+                    audioViewModel = audioViewModel,
                     onNavigateToMusicDetails = {
-                        //backStack.add(Route.MusicDetailsScreen(it))
+                        backStack.add(Route.MusicDetailsScreen)
                     }
                 )
 
             }
             entry<Route.MusicDetailsScreen> {
+                val audioViewModel = hiltViewModel<AudioViewModel>()
 
+                MusicDetailsScreen(
+                    modifier = modifier,
+                    audioViewModel =audioViewModel,
+                    onNavigateBack = {
+                        backStack.remove(Route.MusicDetailsScreen)
+                        backStack.add(Route.MusicScreen)
+                    }
+                )
             }
             entry<Route.SettingsScreen> {
 

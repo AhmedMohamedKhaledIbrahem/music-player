@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreHoriz
@@ -34,15 +34,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.androidinternals.musicplayer.R
 import com.androidinternals.musicplayer.core.component.LoadingState
-import com.androidinternals.musicplayer.feature.music.domain.entity.Music
+import com.androidinternals.musicplayer.core.navigation.Route
+import com.androidinternals.musicplayer.core.ui.event.UiEvent
+import com.androidinternals.musicplayer.feature.music.presentation.intent.AudioIntent
 import com.androidinternals.musicplayer.feature.music.presentation.intent.MusicIntent
+import com.androidinternals.musicplayer.feature.music.presentation.viewmodel.AudioViewModel
 import com.androidinternals.musicplayer.feature.music.presentation.viewmodel.MusicViewModel
 
 @Composable
 fun MusicScreenRoot(
     musicViewModel: MusicViewModel,
+    audioViewModel: AudioViewModel,
     modifier: Modifier = Modifier,
-    onNavigateToMusicDetails: (music: Music) -> Unit,
+    onNavigateToMusicDetails: () -> Unit,
 ) {
     val musicList by musicViewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -67,14 +71,19 @@ fun MusicScreenRoot(
                         }
                     }
                 } else {
-                    items(
+                    itemsIndexed(
                         items = musicList.songs,
-                        key = { it.id }
-                    ) { music ->
+                        key = { _, music -> music.id }
+                    ) { index, music ->
                         MusicCard(
                             //modifier = Modifier,
                             onItemClick = {
-                                onNavigateToMusicDetailsRemember(music)
+                                audioViewModel.onIntent(
+                                    AudioIntent.PlayList(
+                                        songs = musicList.songs,
+                                        startIndex = index
+                                    )
+                                )
                             },
                             onIconClick = {},
                             contentUri = music.contentUri,
@@ -85,6 +94,10 @@ fun MusicScreenRoot(
                 }
             }
         }
+    )
+    MusicEvent(
+        viewModel = audioViewModel,
+        onNavigateToMusicDetails = onNavigateToMusicDetailsRemember
     )
 
 }
@@ -154,6 +167,30 @@ fun MusicCard(
                     contentDescription = "More",
                     tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun MusicEvent(
+    viewModel: AudioViewModel,
+    onNavigateToMusicDetails: () -> Unit
+) {
+    LaunchedEffect(viewModel.event) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> {
+                    when (event.route) {
+                        Route.MusicDetailsScreen -> {
+                            onNavigateToMusicDetails()
+                        }
+
+                        else -> Unit
+                    }
+                }
+
+                else -> Unit
             }
         }
     }

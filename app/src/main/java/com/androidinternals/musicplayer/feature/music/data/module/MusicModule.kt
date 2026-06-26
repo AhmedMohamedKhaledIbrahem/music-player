@@ -1,6 +1,8 @@
 package com.androidinternals.musicplayer.feature.music.data.module
 
+import android.content.Context
 import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import com.androidinternals.musicplayer.feature.music.data.repoistory.MusicRepositoryImpl
 import com.androidinternals.musicplayer.feature.music.data.service.local.MusicLocal
 import com.androidinternals.musicplayer.feature.music.data.service.local.MusicLocalImpl
@@ -16,7 +18,9 @@ import com.androidinternals.musicplayer.feature.music.domain.controller.AudioCon
 import com.androidinternals.musicplayer.feature.music.domain.repoistory.MusicRepository
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -60,6 +64,14 @@ abstract class MusicLocalServiceModule {
     abstract fun bindAudioController(
         impl: AudioPlayerControllerImpl
     ): AudioController
+    companion object {
+        @Provides
+        @Singleton
+        fun provideExoPlayer(@ApplicationContext context: Context): ExoPlayer =
+            ExoPlayer.Builder(context)
+                .setHandleAudioBecomingNoisy(true)
+                .build()
+    }
 }
 
 @Module
