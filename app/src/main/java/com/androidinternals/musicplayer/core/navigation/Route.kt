@@ -12,7 +12,7 @@ sealed interface Route : ViewEvent, NavKey {
     @Serializable
     data object MusicScreen:Route, ViewEvent, NavKey
     @Serializable
-    data class MusicDetailsScreen(val music: Music):Route, ViewEvent, NavKey
+    data object MusicDetailsScreen:Route, ViewEvent, NavKey
     @Serializable
     data object SettingsScreen:Route, ViewEvent, NavKey
 
