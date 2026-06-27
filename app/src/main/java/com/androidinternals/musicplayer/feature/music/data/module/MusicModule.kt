@@ -1,6 +1,9 @@
 package com.androidinternals.musicplayer.feature.music.data.module
 
 import android.content.Context
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C.AUDIO_CONTENT_TYPE_MUSIC
+import androidx.media3.common.C.USAGE_MEDIA
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.androidinternals.musicplayer.feature.music.data.repoistory.MusicRepositoryImpl
@@ -67,10 +70,16 @@ abstract class MusicLocalServiceModule {
     companion object {
         @Provides
         @Singleton
-        fun provideExoPlayer(@ApplicationContext context: Context): ExoPlayer =
-            ExoPlayer.Builder(context)
+        fun provideExoPlayer(@ApplicationContext context: Context): ExoPlayer {
+            val audioAttribute = AudioAttributes.Builder()
+                .setContentType(AUDIO_CONTENT_TYPE_MUSIC)
+                .setUsage(USAGE_MEDIA)
+                .build()
+            return ExoPlayer.Builder(context)
+                .setAudioAttributes(audioAttribute,true)
                 .setHandleAudioBecomingNoisy(true)
                 .build()
+        }
     }
 }
 
