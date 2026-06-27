@@ -41,9 +41,9 @@ fun MusicPlayerNavigation(
                     }
                 )
             }
+            val audioViewModel = hiltViewModel<AudioViewModel>()
             entry<Route.MusicScreen> {
                 val musicViewModel = hiltViewModel<MusicViewModel>()
-                val audioViewModel = hiltViewModel<AudioViewModel>()
                 MusicScreenRoot(
                     musicViewModel = musicViewModel,
                     audioViewModel = audioViewModel,
@@ -54,7 +54,6 @@ fun MusicPlayerNavigation(
 
             }
             entry<Route.MusicDetailsScreen> {
-                val audioViewModel = hiltViewModel<AudioViewModel>()
 
                 MusicDetailsScreen(
                     modifier = modifier,
