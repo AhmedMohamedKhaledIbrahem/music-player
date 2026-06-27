@@ -69,7 +69,7 @@ fun MusicDetailsScreen(
         },
         onPrevious = { audioViewModel.onIntent(AudioIntent.Previous) },
         onNext = { audioViewModel.onIntent(AudioIntent.Next) },
-        onSeek = { audioViewModel.onIntent(AudioIntent.SeekTo(state.currentPosition)) },
+        onSeek = { audioViewModel.onIntent(AudioIntent.SeekTo(it))},
         albumArtUri = state.albumArtUri,
         currentSong = state.currentSong,
         currentArtist = state.currentArtist,
