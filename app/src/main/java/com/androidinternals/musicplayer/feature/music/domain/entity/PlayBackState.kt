@@ -17,7 +17,7 @@ data class PlayBackState(
     val hasPrevious: Boolean = false,
 ) : ViewState {
     val progress: Float
-        get() = if (duration > 0) currentPosition.toFloat() else 0f
+        get() = if (duration > 0) currentPosition.toFloat() / duration.toFloat() else 0f
 }
 
 object PlaybackStateCode {

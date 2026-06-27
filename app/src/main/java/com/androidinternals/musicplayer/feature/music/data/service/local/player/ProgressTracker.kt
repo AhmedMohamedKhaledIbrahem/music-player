@@ -33,8 +33,8 @@ class ProgressTrackerImpl @Inject constructor(): ProgressTracker {
                         hasNext = player.hasNextMediaItem(),
                         hasPrevious = player.hasPreviousMediaItem(),
                     )
-                    delay(1000L)
                 }
+                    delay(1000L)
             }
         }
     }
