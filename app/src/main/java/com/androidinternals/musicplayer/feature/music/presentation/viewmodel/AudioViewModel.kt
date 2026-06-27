@@ -1,5 +1,6 @@
 package com.androidinternals.musicplayer.feature.music.presentation.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import com.androidinternals.musicplayer.core.navigation.Route
 import com.androidinternals.musicplayer.core.ui.base.MviViewModel
 import com.androidinternals.musicplayer.core.ui.event.UiEvent
@@ -7,6 +8,8 @@ import com.androidinternals.musicplayer.feature.music.domain.controller.AudioCon
 import com.androidinternals.musicplayer.feature.music.domain.entity.PlayBackState
 import com.androidinternals.musicplayer.feature.music.presentation.intent.AudioIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,6 +19,13 @@ class AudioViewModel @Inject constructor(
     override val initialState: PlayBackState
         get() = audioController.playbackState.value
 
+    init {
+        viewModelScope.launch {
+            audioController.playbackState.collectLatest { newState ->
+                updateState { newState }
+            }
+        }
+    }
     override fun onIntent(intent: AudioIntent) {
         when (intent) {
             AudioIntent.Resume -> audioController.resume()

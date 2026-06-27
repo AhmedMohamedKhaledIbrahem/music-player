@@ -1,5 +1,6 @@
 package com.androidinternals.musicplayer.feature.music.presentation.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
